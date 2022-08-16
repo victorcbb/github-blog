@@ -5,20 +5,26 @@ export const HeaderContainer = styled.header`
   height: 18.5rem;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 
   box-shadow: inset 0px -80px 100px 110px #3294f826;
 
   > img:first-child {
     width: 25.5625rem;
     height: 11.75rem;
-    margin-top: 4.375rem;
+    position: absolute;
+    top: 4.375rem;
+    left: 0;
+    z-index: -1;
   }
 
   > img:last-child {
     width: 23.1875rem;
     height: 14.75rem;
-    margin-top: 1.875rem;
+    position: absolute;
+    top: 1.875rem;
+    right: 0;
+    z-index: -1;
   }
 
   div {

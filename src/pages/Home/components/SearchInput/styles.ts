@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const SearchInputContainer = styled.div`
+export const SearchInputContainer = styled.form`
   width: 100%;
   margin-bottom: 3rem;
 
@@ -33,6 +33,7 @@ export const SearchInputContainer = styled.div`
     background: ${({ theme }) => theme.input};
     border: ${({ theme }) => theme.border};
     border-radius: 6px;
+    color: ${({ theme }) => theme.brand};
 
     &::placeholder {
       line-height: 160%;

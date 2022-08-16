@@ -1,47 +1,64 @@
-import { PostInfoContainer } from './styles'
+import { useNavigate } from 'react-router-dom'
+import { CaretLeft } from 'phosphor-react'
+
 import arrowUpRightImg from '../../../../assets/arrow-up-right.svg'
 import githubImg from '../../../../assets/github-brand.svg'
-import buildingImg from '../../../../assets/building.svg'
-import followsImg from '../../../../assets/follows.svg'
-import { CaretLeft } from 'phosphor-react'
-import { useNavigate } from 'react-router-dom'
+import calendarImg from '../../../../assets/calendar.svg'
+import { Spinner } from '../../../../components/Spinner'
+import balonImg from '../../../../assets/balon.svg'
+import { PostInfoContainer } from './styles'
+import { IPosts } from '../../../Home'
+import { relativeDateFormatter } from '../../../../utils/formatter'
 
-export function PostInfo() {
+interface PostInfoProps {
+  postData: IPosts
+  isLoading: boolean
+}
+
+export function PostInfo({ postData, isLoading }: PostInfoProps) {
   const navigate = useNavigate()
 
   function handleGoBack() {
     navigate(-1)
   }
 
+  const formattedDate = relativeDateFormatter(postData.created_at)
+
   return (
     <PostInfoContainer>
-      <div className="header">
-        <a onClick={handleGoBack}>
-          <CaretLeft size={12} weight="bold" />
-          Voltar
-        </a>
-        <a href="https://github.com/victorcbb" target="_blank" rel="noreferrer">
-          github
-          <img src={arrowUpRightImg} alt="" />
-        </a>
-      </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="header">
+            <a onClick={handleGoBack}>
+              <CaretLeft size={12} weight="bold" />
+              Voltar
+            </a>
+            <a href={postData.html_url} target="_blank" rel="noreferrer">
+              ver no github
+              <img src={arrowUpRightImg} alt="" />
+            </a>
+          </div>
 
-      <h1>JavaScript data types and data structures</h1>
+          <h1>{postData.title}</h1>
 
-      <div className="footer">
-        <div className="content-infos">
-          <img src={githubImg} alt="" />
-          <span>victorcbb</span>
-        </div>
-        <div className="content-infos">
-          <img src={buildingImg} alt="" />
-          <span>Freelancer</span>
-        </div>
-        <div className="content-infos">
-          <img src={followsImg} alt="" />
-          <span>40 seguidores</span>
-        </div>
-      </div>
+          <div className="footer">
+            <div className="content-infos">
+              <img src={githubImg} alt="ícone do github" />
+              <span>{postData.user.login}</span>
+            </div>
+            <div className="content-infos">
+              <img src={calendarImg} alt="ícone de calendário" />
+              <span>{formattedDate}</span>
+            </div>
+            <div className="content-infos">
+              <img src={balonImg} alt="balão de conversa" />
+              <span>{postData.comments} comentários</span>
+            </div>
+          </div>
+        </>
+      )}
     </PostInfoContainer>
   )
 }

@@ -10,7 +10,7 @@ interface ProfileProps {
   url: string
   bio: string
   userLogin: string
-  company: string
+  company?: string
   followers: number
 }
 
@@ -40,10 +40,12 @@ export function Profile({
             <img src={githubImg} alt="" />
             <span>{userLogin}</span>
           </div>
-          <div className="content-infos">
-            <img src={buildingImg} alt="" />
-            <span>{company}</span>
-          </div>
+          {company && (
+            <div className="content-infos">
+              <img src={buildingImg} alt="" />
+              <span>{company}</span>
+            </div>
+          )}
           <div className="content-infos">
             <img src={followsImg} alt="" />
             <span>{followers} seguidores</span>
